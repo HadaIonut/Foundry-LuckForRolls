@@ -14,6 +14,7 @@ class LuckForRolls {
     }
 
     private _getStartingChance() {
+        Utils.debug(`Critical chance has been reset`);
         return Settings.getSetting("defaultCritChance");
     }
 
@@ -21,55 +22,39 @@ class LuckForRolls {
         return Settings.getSetting("incrementalCritValue");
     }
 
-    private _resetCritChange(user: string) {
-        const critChances = Settings.getCritChances();
-        critChances[user] = this._getStartingChance();
-        Settings.setCritChances(critChances);
-        Utils.debug(`${user}'s critical chance has been reseted`);
-    }
-
-    private _increaseCritChance(user: string) {
+    private _increaseCritChance(critChance: number) {
         const critCap = Settings.getSetting("critCap");
-        const critChances = Settings.getCritChances();
         const critIncrement = this._getIncrementalCrit();
-        if (critChances[user] >= critCap) return;
-        critChances[user] += critIncrement;
-        Settings.setCritChances(critChances);
-        Utils.debug(`${user}'s critical chance has increased to ${critChances[user]}`);
+        if (critChance >= critCap) return critChance;
+        critChance += critIncrement;
+        Utils.debug(`Critical chance has increased to ${critChance}`);
+        return critChance;
     }
 
-    private _getCurrentThreshold(user: string) {
-        const critChances = Settings.getCritChances();
-        if (!critChances[user]) {
-            critChances[user] = this._getStartingChance();
-            Settings.setCritChances(critChances);
-        } else return critChances[user];
-    }
-
-    private _shouldCrit(user: string): boolean {
+    private _shouldCrit(critChance: number): boolean {
         const random = Math.floor(Math.random() * 101);
-        const currentThreshold = this._getCurrentThreshold(user);
-        Utils.debug(`${user}'s current critical threshold is ${currentThreshold}`);
-        return random < currentThreshold;
-
+        Utils.debug(`The current critical chance is ${critChance}`);
+        return random < critChance;
     }
 
     private _parseRolls(rolls: any, user: string) {
         let updatedTotal = 0;
+        let critChance = Settings.getCritChances();
+        if (!critChance[user]) critChance[user] = this._getStartingChance();
         rolls.terms.forEach((roll) => {
             if (roll.faces !== 20) return;
             const results = roll.results;
             results.forEach((result) => {
-                if (this._shouldCrit(user)) {
+                if (this._shouldCrit(critChance[user])) {
                     updatedTotal += 20 - result.result;
                     result.result = 20;
                     Utils.debug(`This roll has been modified`);
                 }
-                if (result.result === 20) this._resetCritChange(user);
-                else this._increaseCritChance(user);
-
+                if (result.result === 20) critChance[user] = this._getStartingChance();
+                else critChance[user] = this._increaseCritChance(critChance[user]);
             })
         })
+        Settings.setCritChances(critChance);
         rolls.total += updatedTotal;
         return JSON.stringify(rolls);
     }
