@@ -29,6 +29,16 @@ export default {
                 config: true,
                 restricted: true,
             },
+        },
+        {
+            key: "critCap",
+            data: {
+                type: Number,
+                default: 30,
+                scope: "world",
+                config: true,
+                restricted: true,
+            },
         }
     ]
 }

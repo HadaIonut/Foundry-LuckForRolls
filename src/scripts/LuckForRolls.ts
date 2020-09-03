@@ -29,8 +29,10 @@ class LuckForRolls {
     }
 
     private _increaseCritChance(user: string) {
+        const critCap = Settings.getSetting("critCap");
         const critChances = Settings.getCritChances();
         const critIncrement = this._getIncrementalCrit();
+        if (critChances[user] >= critCap) return;
         critChances[user] += critIncrement;
         Settings.setCritChances(critChances);
         Utils.debug(`${user}'s critical chance has increased to ${critChances[user]}`);

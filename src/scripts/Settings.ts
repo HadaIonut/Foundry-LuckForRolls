@@ -57,7 +57,7 @@ class Settings {
      * @param key - key of the setting
      * @param data - data to store
      */
-    public setSetting(key: string, data: any): Promise<any> {
+    public setSetting(key: string, data: any): any {
         return game.settings.set(Utils.moduleName, key, data);
     }
 
