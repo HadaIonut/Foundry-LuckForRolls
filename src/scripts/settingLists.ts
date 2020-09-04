@@ -105,6 +105,18 @@ export default {
                 config: true,
                 restricted: true,
             },
+        },
+        {
+            key: "critPrevention",
+            data: {
+                name: "Removes the chance for critical rolls to happen independent of the luck algorithm: ",
+                hint: "Check this box if you want the chance for critical rolls to be determined only by the current crit chance.",
+                type: Boolean,
+                default: false,
+                scope: "world",
+                config: true,
+                restricted: true,
+            },
         }
     ]
 }

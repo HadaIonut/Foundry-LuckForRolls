@@ -22,6 +22,10 @@ class LuckForRolls {
         return Settings.getSetting("incrementalCritValue");
     }
 
+    private _getRandomNumber(max: number) {
+        return Math.floor(Math.random() * max);
+    }
+
     private _increaseCritChance(critChance: number) {
         const critCap = Settings.getSetting("critCap");
         const critIncrement = this._getIncrementalCrit();
@@ -48,18 +52,26 @@ class LuckForRolls {
         const maxRange = Settings.getSetting("rangeMax");
         const lowIncrement = Settings.getSetting("lowIncrement");
 
+        const critPrevention = Settings.getSetting("critPrevention");
+
 
         rolls.terms.forEach((roll) => {
             if (roll.faces !== observedDie) return;
             const results = roll.results;
             results.forEach((result) => {
+                if (critPrevention && result.result === critValue){
+                    const newResult = this._getRandomNumber(critValue);
+                    updatedTotal += newResult - critValue;
+                    result.result = newResult;
+                    Utils.debug(`A crit has been prevented`);
+                }
                 if (this._shouldCrit(critChance[user]) && (!allowRange || result.result <= maxRange)) {
                     updatedTotal += critValue - result.result;
                     Utils.debug(`A ${result.result} has been modified`);
                     result.result = critValue;
                 }
                 if (result.result === critValue) critChance[user] = this._getStartingChance();
-                else if (!lowIncrement || result.result <= maxRange) critChance[user] = this._increaseCritChance(critChance[user]);
+                 else if (!lowIncrement || result.result <= maxRange) critChance[user] = this._increaseCritChance(critChance[user]);
             })
         })
 
