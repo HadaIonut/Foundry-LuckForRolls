@@ -41,19 +41,23 @@ class LuckForRolls {
         let updatedTotal = 0;
         let critChance = Settings.getCritChances();
         if (!critChance[user]) critChance[user] = this._getStartingChance();
+        const observedDie = Settings.getSetting("observedDie");
+        const critValue = Settings.getSetting("critValue");
+
         rolls.terms.forEach((roll) => {
-            if (roll.faces !== 20) return;
+            if (roll.faces !== observedDie) return;
             const results = roll.results;
             results.forEach((result) => {
                 if (this._shouldCrit(critChance[user])) {
-                    updatedTotal += 20 - result.result;
-                    result.result = 20;
+                    updatedTotal += critValue - result.result;
+                    result.result = critValue;
                     Utils.debug(`This roll has been modified`);
                 }
-                if (result.result === 20) critChance[user] = this._getStartingChance();
+                if (result.result === critValue) critChance[user] = this._getStartingChance();
                 else critChance[user] = this._increaseCritChance(critChance[user]);
             })
         })
+
         Settings.setCritChances(critChance);
         rolls.total += updatedTotal;
         return JSON.stringify(rolls);
@@ -68,7 +72,6 @@ class LuckForRolls {
         } catch (e) {
             return;
         }
-
     }
 
 }
