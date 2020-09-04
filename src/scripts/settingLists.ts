@@ -69,6 +69,42 @@ export default {
                 config: true,
                 restricted: true,
             },
+        },
+        {
+            key: "allowRange",
+            data: {
+                name: "Enable luck only for low rolls:",
+                hint: "Check this box if you want only low rolls to have a chance to be replaced.",
+                type: Boolean,
+                default: false,
+                scope: "world",
+                config: true,
+                restricted: true,
+            },
+        },
+        {
+            key: "rangeMax",
+            data: {
+                name: "Highest value that should be replaced:",
+                hint: "If the above box is checked this number represents the highest number that should be considered a \"low roll\".",
+                type: Number,
+                default: 10,
+                scope: "world",
+                config: true,
+                restricted: true,
+            },
+        },
+        {
+            key: "lowIncrement",
+            data: {
+                name: "Only Low Rolls Increase Critical Chance: ",
+                hint: "Check this box if you want only low rolls increase critical chance.",
+                type: Boolean,
+                default: false,
+                scope: "world",
+                config: true,
+                restricted: true,
+            },
         }
     ]
 }

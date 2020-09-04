@@ -44,17 +44,22 @@ class LuckForRolls {
         const observedDie = Settings.getSetting("observedDie");
         const critValue = Settings.getSetting("critValue");
 
+        const allowRange = Settings.getSetting("allowRange");
+        const maxRange = Settings.getSetting("rangeMax");
+        const lowIncrement = Settings.getSetting("lowIncrement");
+
+
         rolls.terms.forEach((roll) => {
             if (roll.faces !== observedDie) return;
             const results = roll.results;
             results.forEach((result) => {
-                if (this._shouldCrit(critChance[user])) {
+                if (this._shouldCrit(critChance[user]) && (!allowRange || result.result <= maxRange)) {
                     updatedTotal += critValue - result.result;
+                    Utils.debug(`A ${result.result} has been modified`);
                     result.result = critValue;
-                    Utils.debug(`This roll has been modified`);
                 }
                 if (result.result === critValue) critChance[user] = this._getStartingChance();
-                else critChance[user] = this._increaseCritChance(critChance[user]);
+                else if (!lowIncrement || result.result <= maxRange) critChance[user] = this._increaseCritChance(critChance[user]);
             })
         })
 
