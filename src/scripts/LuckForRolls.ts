@@ -141,14 +141,17 @@ class LuckForRolls {
             if (roll.faces !== observedDie) return;
             const results = roll.results;
             results.forEach((result) => {
+                //Applies crit prevention
                 const prePrevention = result.result;
                 result.result = this._criticalPrevention(result.result);
                 updatedTotal += result.result - prePrevention;
 
+                //Applies general transformation to rolls
                 const preTransform = result.result;
                 result.result = this._transformRollToCrit(result.result, critChance[user]);
                 updatedTotal += result.result - preTransform;
 
+                //Modifies critical chance
                 critChance[user] = this._modifyCriticalHit(result.result, critChance[user]);
             })
         })
