@@ -1,6 +1,7 @@
 # Luck For Rolls 
 
 Luck For Rolls is a module that allows costumization for the chance of critical rolls to happen in Foundry VTT.
+
 Note: ATM doesn't work with Better Rolls 5e since that module does its rolls in a weird way and I am not sure if I want to support it.
 
 ## Instalation
