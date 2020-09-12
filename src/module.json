@@ -1,15 +1,15 @@
 {
   "name": "Foundry-LuckForRolls",
   "title": "Luck for rolls",
-  "description": "",
-  "authors": ["HadaIonut"],
-  "version": "0.0.1",
+  "description": "Ever feel like the dice are against you? This module is here to help with that. It provides the option to customize the chance for critical rolls to happen and a lot of other nice to have features",
+  "author": "HadaIonut",
+  "version": "0.0.2",
   "esmodules": ["scripts/hooks.js"],
   "styles": ["styles/LuckForRolls.css"],
   "minimumCoreVersion": "0.6.5",
   "compatibleCoreVersion": "0.7.1",
-  "url": "",
-  "manifest": "",
-  "download": "",
+  "url": "https://github.com/HadaIonut/Foundry-LuckForRolls",
+  "manifest": "https://github.com/HadaIonut/Foundry-LuckForRolls/releases/download/v0.0.2/module.json",
+  "download": "https://github.com/HadaIonut/Foundry-LuckForRolls/releases/download/v0.0.2/Foundry-LuckForRolls.zip",
   "changelog": ""
 }
