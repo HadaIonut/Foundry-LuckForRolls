@@ -1,6 +1,5 @@
-![Downloads](https://img.shields.io/github/downloads/HadaIonut/Foundry-LuckForRolls/v0.0.2/Foundry-LuckForRolls.zip?label=Downloads)
-
 # Luck For Rolls 
+![Downloads](https://img.shields.io/github/downloads/HadaIonut/Foundry-LuckForRolls/v1.0.0/Foundry-LuckForRolls.zip?style=flat-square)
 
 Luck For Rolls is a module that allows costumization for the chance of critical rolls to happen in Foundry VTT.
 
