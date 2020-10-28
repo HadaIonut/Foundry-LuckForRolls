@@ -1,13 +1,13 @@
 # Luck For Rolls 
 ![Downloads](https://img.shields.io/github/downloads/HadaIonut/Foundry-LuckForRolls/v1.0.0/Foundry-LuckForRolls.zip?style=flat-square)
+[![ko-fi](https://www.ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/A0A32J9GM)
 
+### WARNING: THIS MODULE OVERRIDES THE DEFAULT ROLL FUNCTION! BECAUSE OF THIS IT ISNT COMPATIBLE WITH ANY OTHER MODULE THAT DOES SOMETHING LIKE THIS.
 Luck For Rolls is a module that allows costumization for the chance of critical rolls to happen in Foundry VTT.
-
-Note: ATM doesn't work with Better Rolls 5e since that module does its rolls in a weird way and I am not sure if I want to support it.
 
 ## Instalation
 
-Since it is not yet released this module can be installed using the manifest `https://github.com/HadaIonut/Foundry-LuckForRolls/releases/download/v0.0.1/module.json`
+The module can be found on the foundry vtt module installer
 
 ## Usage
 
