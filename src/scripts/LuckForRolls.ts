@@ -48,11 +48,11 @@ class LuckForRolls {
      * @param rolledValue - the value of the roll
      * @private
      */
-    private _criticalPrevention (rolledValue: number): number {
+    private _criticalPrevention(rolledValue: number): number {
         const critPrevention = Settings.getSetting("critPrevention");
         const critValue = Settings.getSetting("critValue");
 
-        if (critPrevention && rolledValue === critValue){
+        if (critPrevention && rolledValue === critValue) {
             rolledValue = this._getRandomNumber(critValue);
             Utils.debug(`A crit has been prevented`);
         }
@@ -67,7 +67,7 @@ class LuckForRolls {
      * @param critChance - the chance for a roll to be modified into a crit
      * @private
      */
-    private _transformRollToCrit (rolledValue: number, critChance: number): number {
+    private _transformRollToCrit(rolledValue: number, critChance: number): number {
         const critValue = Settings.getSetting("critValue");
         const allowRange = Settings.getSetting("allowRange");
         const maxRange = Settings.getSetting("rangeMax");
@@ -127,54 +127,29 @@ class LuckForRolls {
     /**
      * Modifies all the rolls
      *
-     * @param rolls - the message.rolls element of the message structure
+     * @param roll - the message.rolls element of the message structure
+     * @param dieFaces - number of faces of the rolled die
      * @param user - owner of the message
      * @private
      */
-    private _modifyRolls(rolls: any, user: string) {
-        let updatedTotal = 0;
-        let critChance = Settings.getCritChances();
+    public modifyRolls(roll: any, dieFaces: number, user: string, critChance: number) {
         if (!critChance[user]) critChance[user] = this._getStartingChance();
         const observedDie = Settings.getSetting("observedDie");
 
-        rolls.terms.forEach((roll) => {
-            if (roll.faces !== observedDie) return;
-            const results = roll.results;
-            results.forEach((result) => {
-                //Applies crit prevention
-                const prePrevention = result.result;
-                result.result = this._criticalPrevention(result.result);
-                updatedTotal += result.result - prePrevention;
+        if (dieFaces !== observedDie) return {roll: roll, crit: critChance};
+        let result = roll.result;
 
-                //Applies general transformation to rolls
-                const preTransform = result.result;
-                result.result = this._transformRollToCrit(result.result, critChance[user]);
-                updatedTotal += result.result - preTransform;
+        //Applies crit prevention
+        result = this._criticalPrevention(result);
 
-                //Modifies critical chance
-                critChance[user] = this._modifyCriticalHit(result.result, critChance[user]);
-            })
-        })
+        //Applies general transformation to rolls
+        result = this._transformRollToCrit(result, critChance[user]);
 
-        Settings.setCritChances(critChance);
-        rolls.total += updatedTotal;
-        return JSON.stringify(rolls);
-    }
+        //Modifies critical chance
+        critChance[user] = this._modifyCriticalHit(result, critChance[user]);
 
-    /**
-     * Receives the message and starts the modification process if it is possible
-     *
-     * @param message - the message structure
-     */
-    public preCreateChatMessage(message: any) {
-        if (!message) return;
-        try {
-            const rollJson = JSON.parse(message.roll);
-            message.roll = this._modifyRolls(rollJson, message.user);
-            return message;
-        } catch (e) {
-            return;
-        }
+        roll.result = result;
+        return {roll: roll, crit: critChance};
     }
 
 }

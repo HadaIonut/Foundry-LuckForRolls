@@ -12,8 +12,8 @@ class Settings {
         return Settings._instance;
     }
 
-    private _registerSetting(key: string, data: any): void {
-        game.settings.register(Utils.moduleName, key, data);
+    private async _registerSetting(key: string, data: any): Promise<void> {
+        await game.settings.register(Utils.moduleName, key, data);
     }
 
     private _getSetting(key: string): any {
@@ -37,9 +37,9 @@ class Settings {
         }
     }
 
-    public setCritChances(data) {
+    public async setCritChances(data) {
         data = JSON.stringify(data);
-        this.setSetting("critChances", data);
+        await this.setSetting("critChances", data);
     }
 
     /**
@@ -57,8 +57,8 @@ class Settings {
      * @param key - key of the setting
      * @param data - data to store
      */
-    public setSetting(key: string, data: any): any {
-        return game.settings.set(Utils.moduleName, key, data);
+    public async setSetting(key: string, data: any): Promise<any> {
+        return await game.settings.set(Utils.moduleName, key, data);
     }
 
 }

@@ -7,7 +7,7 @@
   "esmodules": ["scripts/hooks.js"],
   "styles": ["styles/LuckForRolls.css"],
   "minimumCoreVersion": "0.6.5",
-  "compatibleCoreVersion": "0.7.1",
+  "compatibleCoreVersion": "0.7.5",
   "url": "https://github.com/HadaIonut/Foundry-LuckForRolls",
   "manifest": "https://github.com/HadaIonut/Foundry-LuckForRolls/releases/download/v0.0.2/module.json",
   "download": "https://github.com/HadaIonut/Foundry-LuckForRolls/releases/download/v0.0.2/Foundry-LuckForRolls.zip",
