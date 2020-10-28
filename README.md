@@ -1,5 +1,5 @@
 # Luck For Rolls 
-![Downloads](https://img.shields.io/github/downloads/HadaIonut/Foundry-LuckForRolls/v1.0.0/Foundry-LuckForRolls.zip?style=flat-square)
+![Downloads](https://img.shields.io/github/downloads/HadaIonut/Foundry-LuckForRolls/v1.1.0/Foundry-LuckForRolls.zip?style=for-the-badge)
 [![ko-fi](https://www.ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/A0A32J9GM)
 
 ### WARNING: THIS MODULE OVERRIDES THE DEFAULT ROLL FUNCTION! BECAUSE OF THIS IT ISNT COMPATIBLE WITH ANY OTHER MODULE THAT DOES SOMETHING LIKE THIS.
